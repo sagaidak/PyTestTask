@@ -1,0 +1,13 @@
+{% extends 'news/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+{{ article.title }}
+{% endblock %}
+
+{% block articles %}
+<ul>
+    <img width="200" height="200" src="{% static "news/pics/" %}{{ article.id }}.jpg" />
+    <li>{{ article.text }}</li>
+</ul>
+{% endblock %}

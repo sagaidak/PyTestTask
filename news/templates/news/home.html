@@ -1,0 +1,42 @@
+{% extends 'news/base.html' %}
+{% csrf_token %}
+
+{% block titles %}
+
+<script>
+function more() {
+  a = $("#list li").length;
+  var items = [];
+  $.post("/news/", {
+        iteration: a
+    },
+function(data){
+    arts = JSON.parse(data);
+    arts.forEach(function(item) {
+
+    $('#list').append("<li><a href='"+item.pk+"'>" + item.fields.title + "</a></li>");
+    });
+
+}
+
+);
+
+
+}
+
+function addClickHandlers() {
+  $("#more").click( function() { more() });
+}
+$(document).ready(addClickHandlers);
+</script>
+
+
+<ul id="list">
+{% for article in articles_list %}
+
+        <li><a href="{{ article.id }}">{{ article.title }}</a></li>
+
+{% endfor %}
+</ul>
+<button type="submit" id="more">+</button>
+{% endblock %}
